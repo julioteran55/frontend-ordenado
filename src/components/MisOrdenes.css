@@ -1,0 +1,132 @@
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f4f4;
+}
+
+.dashboard {
+  padding: 20px;
+}
+
+.usuario-contenedor {
+  display: flex;
+  flex-direction: center;
+  
+}
+
+/* Info usuario */
+.usuario-info2 {
+  width: 400px;
+  background: white;
+  padding: 20px;
+  margin: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+  border-radius: 6px;
+  border: 2px solid #ccc;
+}
+
+.usuario-direccion {
+  width: 400px;
+  background: white;
+  padding: 25px;
+  margin: 20px;
+  margin-right: 50px;
+  border-radius: 6px;
+  border: 2px solid #ccc;
+}
+
+/* Resumen */
+.resumen {
+  margin: 20px;
+  margin-left: 100px;
+  margin-right: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+ 
+}
+
+.container-imagen {
+  display: flex;
+  justify-content: flex-start; /* 👈 manda el contenido a la derecha */
+  margin-left: 120px;
+  align-items: center;
+}
+
+.container-imagen img {
+  width: 200px;          /* ajusta el tamaño según necesites */
+  height: 200px;         /* mismo valor que width para que sea un círculo */
+  border-radius: 50%;    /* 👈 hace la imagen redonda */
+  object-fit: cover;     /* recorta bien la imagen dentro del círculo */
+  border: 2px solid #ccc; /* opcional: borde gris alrededor */
+}
+
+
+
+.resumen-box {
+  width: 300px;
+  flex: 1;
+  background: rgb(39, 167, 75);
+  padding: 20px;
+  border-radius: 9px;
+  text-align: center;
+  color: white;
+  
+}
+
+/* Tabla */
+.tabla-ordenes {
+  background: white;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+.tabla-ordenes table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-ordenes th,
+.tabla-ordenes td {
+  padding:20px;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+}
+
+.tabla-ordenes th {
+  background: #f0f0f0;
+}
+
+/* Paginación */
+.paginacion{
+    display: flex;
+    justify-content: right;
+}
+.paginacion button {
+  background-color:rgb(171, 169, 169)6;
+  width: auto;
+  color: rgb(5, 4, 4);
+  border: none;
+  border-radius: 5px;
+  padding: 8px 10px;
+  margin: 2px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.btn-verdetalle {
+  background-color: #0ea50e;
+  width: auto;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+
+.paginacion button:hover {
+  background-color: #d6ded6;
+}

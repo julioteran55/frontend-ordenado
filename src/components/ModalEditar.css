@@ -1,0 +1,72 @@
+
+.modal-overlay3 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-container3 {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+.modal-buttons3 {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+  gap: 10px;
+}
+
+.btn-guardar {
+  background-color: #0ea50e;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-guardar:hover {
+  background-color: #0c8c0c;
+}
+
+.btn-cancelar {
+  background-color: #ccc;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-cerrar:hover {
+  background-color: #aaa;
+}
+
+.form-modal3 input {
+  width: 100%;
+  padding: 6px;
+  margin-top: 6px;
+  margin-right: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.form-modal3 label {
+  margin-top: 15px;
+  display: block;
+  font-weight: bold;
+}
+
+.form-modal3{
+  margin: 20px;
+}
+

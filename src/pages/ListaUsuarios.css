@@ -1,0 +1,216 @@
+.usuarios-container {
+  padding: 40px 80px;
+  background-color: #fafafa;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+.usuarios-container h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #111;
+}
+
+.busqueda-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-bottom: 25px;
+  max-width: 500px;
+  position: relative;
+}
+
+.busqueda-container input {
+  width: 100%;
+  padding: 10px 40px 10px 14px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #333;
+  background-color: #fff;
+  transition: all 0.25s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.busqueda-container input::placeholder {
+  color: #999;
+}
+
+.busqueda-container input:focus {
+  outline: none;
+  border-color: #3ca63c;
+  box-shadow: 0 0 0 3px rgba(60, 166, 60, 0.15);
+}
+
+.tabla-usuarios {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.tabla-usuarios th {
+  background: #f6f6f6;
+  padding: 14px 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #222;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 14px;
+}
+
+.tabla-usuarios td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #f3f3f3;
+  color: #444;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.tabla-usuarios tr:hover {
+  background-color: #f9fff9;
+}
+
+.nombre-usuario {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.foto-usuario {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #f3f3f3;
+}
+
+.estado-activo {
+  color: #3ca63c;
+  font-weight: 600;
+}
+
+.estado-inactivo {
+  color: #e53935;
+  font-weight: 600;
+}
+
+.acciones {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-desactivar,
+.btn-ver {
+  border: none;
+  border-radius: 6px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-desactivar {
+  background-color: #fff;
+  color: #3ca63c;
+  border: 1px solid #3ca63c;
+}
+
+.btn-desactivar:hover {
+  background-color: #3ca63c;
+  color: #fff;
+}
+
+.btn-ver {
+  background-color: #3ca63c;
+  color: white;
+}
+
+.btn-ver:hover {
+  background-color: #2f8d2f;
+}
+
+.sin-usuarios {
+  text-align: center;
+  padding: 18px;
+  color: #777;
+  font-style: italic;
+}
+
+.paginador {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 25px;
+  font-family: "Poppins", sans-serif;
+}
+
+.paginador button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 1px solid #d1d1d1;
+  color: #333;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.paginador button:hover:not(:disabled) {
+  border-color: #2f8d2f;
+  color: #2f8d2f;
+  background-color: #f4faf4;
+}
+
+.paginador .activo {
+  background-color: #2f8d2f !important;
+  border-color: #2f8d2f !important;
+  color: white !important;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.paginador button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background-color: #fafafa;
+}
+
+.page-dots {
+  color: #777;
+  font-size: 14px;
+  padding: 0 5px;
+}
+
+@media (max-width: 900px) {
+  .usuarios-container {
+    padding: 20px;
+  }
+
+  .busqueda-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .busqueda-container input {
+    margin-bottom: 8px;
+  }
+
+  .tabla-usuarios {
+    font-size: 13px;
+  }
+
+  .acciones {
+    flex-direction: column;
+  }
+}

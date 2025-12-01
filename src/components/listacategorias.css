@@ -1,0 +1,87 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f7f7f7;
+}
+.contenedor{
+    width: auto;
+    padding: 20px;
+    background: white;
+    
+}
+.acciones-superiores {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+input {
+  border-radius: 5px;
+  border: 2px solid rgb(173, 172, 172);
+  height: 25px;
+  width: 85%;
+  padding: 6px;
+}
+
+.btn-agregar {
+  margin-top: 0px;
+  width: auto;
+  background-color: #2e7d32;
+  color: white;
+  border: 1px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.contenedor2 {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgb(173, 172, 172);
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding:20px;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+}
+
+.btn-editar, .btn-eliminar {
+  width: auto;
+  border: none;
+  border-radius: 5px;
+  background: green;
+  padding: 8px 8px;
+  cursor: pointer;
+  font-size: 10px;
+  margin: 5px;
+  margin-left: 0px;
+}
+
+.paginacion{
+    display: flex;
+    justify-content: right;
+}
+
+.paginacion button {
+  background-color:rgb(171, 169, 169)6;
+  width: auto;
+  color: rgb(5, 4, 4);
+  border: none;
+  border-radius: 5px;
+  padding: 8px 10px;
+  margin: 2px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.btn-editar:hover { color: rgb(13, 14, 13); }
+.btn-eliminar:hover { color: rgb(19, 17, 17); }
+
+.paginacion button:hover {
+  background-color: #d6ded6;
+}

@@ -1,0 +1,130 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Contenedor principal del modal */
+.modal-contenido {
+  background-color: #fff;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  width: 900px;           /* más ancho para la tabla */
+  max-width: 95%;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.25s ease-in-out;
+  box-sizing: border-box;
+}
+
+/* Header con título y botón X */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+/* Botón X en la esquina */
+.btn-cerrar {
+  background: transparent;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  border-radius: 6px;
+  color: #555;
+}
+
+.btn-cerrar:hover {
+  background-color: #f0f0f0;
+}
+
+/* Información general de la orden */
+.modal-info-orden {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.5rem 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.modal-info-orden p {
+  margin: 0.1rem 0;
+}
+
+/* Título de sección productos */
+.modal-contenido h3 {
+  margin: 0 0 0.8rem 0;
+}
+
+/* Tabla de productos */
+.tabla-productos-orden {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.tabla-productos-orden thead {
+  background-color: #f4f4f4;
+}
+
+.tabla-productos-orden th,
+.tabla-productos-orden td {
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+  vertical-align: top;
+}
+
+.tabla-productos-orden th {
+  font-weight: 600;
+}
+
+/* Celda de producto con imagen + texto */
+.producto-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.producto-imagen {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.producto-nombre {
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.producto-descripcion {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
