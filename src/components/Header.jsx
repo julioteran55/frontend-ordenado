@@ -54,10 +54,11 @@ function Header() {
     setMostrarMenu(!mostrarMenu);
   };
 
-  const seleccionarCategoria = (nombre) => {
+  // *** MODIFICACIÓN CRÍTICA ***: Ahora pasamos el ID de la categoría (el UUID)
+  const seleccionarCategoria = (id) => {
     setMostrarMenu(false);
-    // Esta línea ya adjunta el nombre de la categoría a la URL
-    navigate(`/productos?categoria=${encodeURIComponent(nombre)}`);
+    // Esta línea envía el ID (UUID) a la URL: /productos?categoria=a9a07d60-...
+    navigate(`/productos?categoria=${encodeURIComponent(id)}`);
   };
 
   return (
@@ -111,7 +112,8 @@ function Header() {
                   <li key={cat.id}>
                     <button
                       className="submenu-item"
-                      onClick={() => seleccionarCategoria(cat.nombre)}
+                      // *** MODIFICACIÓN CRÍTICA AQUÍ ***: Pasamos el ID (UUID) del objeto cat
+                      onClick={() => seleccionarCategoria(cat.id)}
                     >
                       {cat.nombre}
                     </button>
