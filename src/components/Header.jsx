@@ -21,6 +21,10 @@ function Header() {
   const [loading, setLoading] = useState(true);
   
   const [mostrarMenu, setMostrarMenu] = useState(false);
+  
+  // *** NUEVO ESTADO PARA EL TÉRMINO DE BÚSQUEDA ***
+  const [searchTerm, setSearchTerm] = useState(""); 
+
   const navigate = useNavigate();
   const { user, logout } = useUser();
 
@@ -54,11 +58,30 @@ function Header() {
     setMostrarMenu(!mostrarMenu);
   };
 
-  // *** MODIFICACIÓN CRÍTICA ***: Ahora pasamos el ID de la categoría (el UUID)
+  // Función para navegar y filtrar por ID de categoría
   const seleccionarCategoria = (id) => {
     setMostrarMenu(false);
     // Esta línea envía el ID (UUID) a la URL: /productos?categoria=a9a07d60-...
     navigate(`/productos?categoria=${encodeURIComponent(id)}`);
+    setSearchTerm(""); // Limpia la búsqueda anterior si se selecciona una categoría
+  };
+
+  // *** FUNCIÓN: MANEJAR LA BÚSQUEDA ***
+  const handleSearch = (e) => {
+    // Si se llama desde el evento keyPress, verificamos que sea la tecla Enter
+    if (e.key === 'Enter' || e.type === 'click') {
+      e.preventDefault(); // Evita el comportamiento por defecto (si lo hay)
+      
+      // Si el término de búsqueda no está vacío, navegamos con el parámetro 'q'.
+      if (searchTerm.trim()) {
+        // Navega a la ruta de productos con el parámetro de búsqueda 'q'
+        navigate(`/productos?q=${encodeURIComponent(searchTerm.trim())}`);
+        setSearchTerm(""); // Limpiar la barra de búsqueda después de navegar
+      } else {
+        // Si la barra está vacía, navega a la página de todos los productos
+        navigate(`/productos`);
+      }
+    }
   };
 
   return (
@@ -71,9 +94,19 @@ function Header() {
         </div>
 
         <div className="barra-busqueda">
-          <input type="text" placeholder="Buscar un producto..." />
+          {/* *** MODIFICACIÓN DEL INPUT: AÑADIMOS ESTADO y EVENTOS *** */}
+          <input 
+            type="text" 
+            placeholder="Buscar un producto..." 
+            value={searchTerm} // 1. Vinculamos el valor al estado
+            onChange={(e) => setSearchTerm(e.target.value)} // 2. Actualizamos el estado al escribir
+            onKeyPress={(e) => { 
+              if (e.key === 'Enter') handleSearch(e); // 3. Llamamos a la función al presionar Enter
+            }}
+          />
+          {/* Nota: Si se añade un botón de búsqueda, se debe añadir onClick={handleSearch} al botón */}
         </div>
-
+        
         <div className="acciones">
           <Link to="/carrito" className="boton-carrito">
             <img src={imgcarrito} alt="Carrito" className="icono-carrito" />
@@ -112,7 +145,7 @@ function Header() {
                   <li key={cat.id}>
                     <button
                       className="submenu-item"
-                      // *** MODIFICACIÓN CRÍTICA AQUÍ ***: Pasamos el ID (UUID) del objeto cat
+                      // Pasamos el ID (UUID) del objeto cat
                       onClick={() => seleccionarCategoria(cat.id)}
                     >
                       {cat.nombre}

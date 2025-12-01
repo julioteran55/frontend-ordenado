@@ -6,6 +6,7 @@ import ProductCard from "../components/ProductCard.jsx";
 import "./Productos.css";
 
 
+
 function Productos() {
   // 1. Estado para guardar la lista maestra de productos, sin filtrar.
   const [listaProductos, setListaProductos] = useState([]); 
@@ -15,13 +16,14 @@ function Productos() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // 3. Hook para leer los parámetros de consulta de la URL (ej: ?categoria=a9a07d60-...)
+  // 3. Hook para leer los parámetros de consulta de la URL (ej: ?categoria=... o ?q=...)
   const [searchParams] = useSearchParams();
 
-  // 4. Cargar productos y aplicar el filtro de la URL
+  // 4. Cargar productos y aplicar los filtros de la URL
   useEffect(() => {
-    // El filtro es el ID (UUID) de la categoría que viene del Header
+    // Leer los dos posibles filtros de la URL
     const categoriaIdFiltro = searchParams.get("categoria"); 
+    const terminoBusqueda = searchParams.get("q"); // Nuevo parámetro de búsqueda
     
     const cargarDatos = async () => {
       try {
@@ -30,34 +32,38 @@ function Productos() {
 
         console.log("Iniciando carga de productos...");
 
-        // --- VERIFICACIÓN CRÍTICA DE IMPORTACIÓN ---
         if (typeof obtenerProductos !== 'function') {
-            throw new Error("FATAL: La función 'obtenerProductos' no fue importada correctamente. Revisa la línea 'import { obtenerProductos }...' y el nombre de la función exportada.");
+            throw new Error("FATAL: La función 'obtenerProductos' no fue importada correctamente.");
         }
         
         // Llamada a la API que DEBE traer TODOS los productos.
         const data = await obtenerProductos();
-        console.log("Datos recibidos de API:", data);
 
         if (Array.isArray(data)) {
           setListaProductos(data); // Guarda la lista completa como maestra
+          let resultadoFiltrado = data;
 
-          // --- LÓGICA DE FILTRADO POR ID (UUID) ---
+          // --- 1. LÓGICA DE FILTRADO POR CATEGORÍA (UUID) ---
           if (categoriaIdFiltro) {
-            // Si hay un filtro ID en la URL, filtramos la lista completa
-            const filtrados = data.filter(
-              // *** ¡CORRECCIÓN APLICADA! ***
-              // Usamos el nombre de la propiedad 'categoriaId' que nos confirmaste.
+            resultadoFiltrado = resultadoFiltrado.filter(
+              // Usamos la propiedad 'categoriaId' confirmada por el usuario.
               (p) => p.categoriaId === categoriaIdFiltro
             );
-            setProductosFiltrados(filtrados);
-            console.log(`Filtro aplicado por ID: ${categoriaIdFiltro}. Productos encontrados: ${filtrados.length}`);
-          } else {
-            // Si NO hay filtro en la URL, mostramos la lista completa
-            setProductosFiltrados(data);
-            console.log("No hay filtro de categoría. Mostrando todos los productos.");
+            console.log(`Filtro aplicado por ID de Categoría: ${categoriaIdFiltro}. Productos restantes: ${resultadoFiltrado.length}`);
           }
-          // --- FIN LÓGICA DE FILTRADO ---
+          
+          // --- 2. LÓGICA DE FILTRADO POR TÉRMINO DE BÚSQUEDA ---
+          if (terminoBusqueda) {
+            const query = terminoBusqueda.toLowerCase().trim();
+            resultadoFiltrado = resultadoFiltrado.filter(
+              // Filtra si el nombre del producto incluye el término de búsqueda
+              (p) => p.nombre && p.nombre.toLowerCase().includes(query)
+            );
+            console.log(`Filtro aplicado por Búsqueda: "${terminoBusqueda}". Productos restantes: ${resultadoFiltrado.length}`);
+          }
+
+          // Asignar el resultado final de los filtros
+          setProductosFiltrados(resultadoFiltrado);
           
         } else {
           console.error("La API no devolvió un array:", data);
@@ -76,31 +82,34 @@ function Productos() {
       }
     };
     
-    // Ejecutar la carga y el filtro
+    // El efecto se ejecuta si cambia cualquier parámetro de la URL
     cargarDatos();
-  }, [searchParams]); // Se re-ejecuta cada vez que cambia el filtro de la URL
+  }, [searchParams]); 
 
   // Título dinámico
   const categoriaIdActual = searchParams.get("categoria");
-  // Mostramos una versión corta del UUID en el título
-  const tituloPagina = categoriaIdActual 
-    ? `Productos filtrados por categoría` 
-    : "Todos los productos";
+  const terminoBusquedaActual = searchParams.get("q");
+  
+  let tituloPagina = "Todos los productos";
+  if (terminoBusquedaActual) {
+    tituloPagina = `Resultados para: "${terminoBusquedaActual}"`;
+  } else if (categoriaIdActual) {
+    // Si hay filtro de categoría, pero no de búsqueda, mostramos el ID de la categoría (reducido)
+    tituloPagina = `Productos filtrados`;
+  }
+
 
   if (loading) return <div style={{padding:"50px", textAlign:"center"}}><h2>Cargando productos...</h2></div>;
   
-  // Si hay error, mostramos el mensaje de error con el detalle
   if (error) return <div style={{padding:"50px", color:"red", textAlign:"center"}}><h2>Error al cargar: {error}</h2><p>Revisa la consola (F12) para más detalles.</p></div>;
 
   return (
     <div className="productos-contenedor">
       <main className="grid-productos" style={{width: "100%"}}>
-        {/* 5. Usamos el título dinámico */}
         <h2>{tituloPagina}</h2>
 
-        {/* 6. Usamos productosFiltrados para el mapeo */}
         {productosFiltrados.length === 0 ? (
-          <p>No hay productos para mostrar en esta categoría.</p>
+          <p>No hay productos para mostrar con los filtros aplicados.</p>
         ) : (
           <div className="grid">
             {productosFiltrados.map((p) => {
@@ -114,8 +123,7 @@ function Productos() {
                   key={p.id}  
                   id={p.id}
                   nombre={p.nombre}
-                  // *** MODIFICACIÓN AQUÍ ***: Eliminamos el UUID visible.
-                  // Pasa una cadena vacía. Si ProductCard necesita el nombre, deberás buscarlo.
+                  // Ya no se imprime el UUID en el card
                   categoria={""} 
                   precio={p.precio}
                   imagen={p.imagen}
