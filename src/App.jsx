@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./components/context/UserContext.jsx";
 import { CartProvider } from "./components/context/CartContext.jsx";
 import { CheckoutFlowProvider } from "./components/context/CheckoutContext.jsx";
+import { HashRouter } from "react-router-dom";
+
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -36,7 +38,7 @@ export default function App() {
   return (
     <UserProvider>
       <CartProvider>
-        <BrowserRouter>
+        <HashRouter>
           <CheckoutFlowProvider>
             <Header />
 
@@ -79,7 +81,7 @@ export default function App() {
 
             <Footer />
           </CheckoutFlowProvider>
-        </BrowserRouter>
+        </HashRouter>
       </CartProvider>
     </UserProvider>
   );

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 // IMPORTANTE: Según tu foto, el archivo se llama "productos.js" (singular)
-import { obtenerProductos } from "../api/productos"; 
+import { obtenerProductos } from "../api/productos.js"; 
 import { useSearchParams } from "react-router-dom";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/ProductCard.jsx";
 import "./Productos.css";
 
 
