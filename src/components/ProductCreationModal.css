@@ -1,0 +1,102 @@
+/* ------------------------------------------- */
+/* 1. Estilos del Overlay y Contenedor del Modal */
+/* ------------------------------------------- */
+
+/* La capa oscura de fondo */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* Oscurece el fondo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegura que esté por encima de todo */
+}
+
+/* El cuadro principal del modal */
+.modal-content {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  width: 90%;
+  max-width: 500px; /* Tamaño máximo consistente con tu tabla */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  transform: scale(1);
+  transition: transform 0.3s ease-out;
+  position: relative;
+}
+
+/* Título del modal */
+.modal-content h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+/* ------------------------------------------- */
+/* 2. Estilos del Formulario y Campos */
+/* ------------------------------------------- */
+
+/* Estilo para cada fila del formulario */
+.modal-content form p {
+  margin-bottom: 15px;
+}
+
+/* Estilo para las etiquetas */
+.modal-content label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* Estilo para todos los inputs, textareas y select */
+.modal-content input[type="text"],
+.modal-content input[type="number"],
+.modal-content textarea,
+.modal-content select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  margin-top: 4px; /* Pequeño espacio debajo de la etiqueta */
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.modal-content input:focus,
+.modal-content textarea:focus,
+.modal-content select:focus {
+  border-color: #3AA423; /* Borde verde al enfocar */
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(58, 164, 35, 0.1);
+}
+
+.modal-content textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ------------------------------------------- */
+/* 3. Estilos de Botones dentro del Modal */
+/* ------------------------------------------- */
+
+/* Contenedor de botones (al pie del formulario) */
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end; /* Alinear a la derecha */
+  gap: 10px;
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+/* Re
