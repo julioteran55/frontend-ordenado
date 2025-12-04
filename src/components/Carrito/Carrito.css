@@ -1,5 +1,5 @@
 cart-container {
-  padding-bottom: 120px;
+  padding-bottom: 250px;
 }
 .cart-grid {
   display: grid;
@@ -22,6 +22,10 @@ cart-container {
   padding: 12px 0;
   border-bottom: 1px solid #f1f5f9;
   align-items: center;
+  padding-bottom: 100px;
+}
+.cart-container {
+  min-height: 70vh; /* o 70vh */
 }
 
 .cart-item:last-child {
@@ -255,4 +259,3 @@ cart-container {
     grid-template-columns: 1fr;
   }
 }
-
