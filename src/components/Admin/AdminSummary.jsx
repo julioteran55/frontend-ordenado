@@ -1,16 +1,13 @@
 import React from "react";
-import { useUser } from "../context/UserContext";
-import { useOrders } from "../context/OrderContext";
 
-function AdminSummary({ range }) {
-
-  const { usuarios } = useUser();
-  const { ordenes } = useOrders();
-
+function AdminSummary({ range, users = [], orders = [] }) {
   const data = {
-    orders: ordenes.length,
-    newUsers: usuarios.length,
-    revenue: ordenes.reduce((acc, order) => acc + order.total, 0),
+    orders: orders.length,
+    newUsers: users.length,
+    revenue: orders.reduce(
+      (acc, order) => acc + Number(order.total || 0),
+      0
+    ),
   };
 
   return (
