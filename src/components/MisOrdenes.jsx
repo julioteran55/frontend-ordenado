@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./MisOrdenes.css";
 import ModalOrden from "./Modaldetalleorden.jsx";
 import fotoPerfil from "../assets/I6.webp";
 import { obtenerOrdenesPorUsuario } from "../api/ordenes.js";
 
+
 function MisOrdenes() {
+  const navigate = useNavigate();
   const [usuario, setUsuario] = useState(null);
   const [ordenes, setOrdenes] = useState([]);
   const [ordenSeleccionada, setOrdenSeleccionada] = useState(null);
@@ -92,7 +95,17 @@ function MisOrdenes() {
               ? new Date(usuario.fechaRegistro).toLocaleDateString()
               : "-"}
           </p>
+          <button
+        type="button"
+        className="btn-contrasena"
+        onClick={() => navigate("/CambiarContraseña")}
+                >
+                  Cambiar contraseña
+    </button>
+
         </div>
+
+    
 
         <div className="usuario-direccion">
           <h3>

@@ -50,17 +50,17 @@ body {
 
 .container-imagen {
   display: flex;
-  justify-content: flex-start; /* 👈 manda el contenido a la derecha */
+  justify-content: flex-start; 
   margin-left: 120px;
   align-items: center;
 }
 
 .container-imagen img {
-  width: 200px;          /* ajusta el tamaño según necesites */
-  height: 200px;         /* mismo valor que width para que sea un círculo */
-  border-radius: 50%;    /* 👈 hace la imagen redonda */
-  object-fit: cover;     /* recorta bien la imagen dentro del círculo */
-  border: 2px solid #ccc; /* opcional: borde gris alrededor */
+  width: 200px;          
+  height: 200px;        
+  border-radius: 50%;    
+  object-fit: cover;     
+  border: 2px solid #ccc; 
 }
 
 
@@ -129,4 +129,57 @@ body {
 
 .paginacion button:hover {
   background-color: #d6ded6;
+}
+
+.usuario-contenedor perfil-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #0ea50e;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+/* Botón cambiar contraseña (link con estilo de botón) */
+.btn-contrasena {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+  padding: 6px 10px; /* reducido */
+  background-color: #28a745;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 0.85rem; /* más pequeño */
+  line-height: 1;
+  border: none;
+  cursor: pointer;
+  min-width: 90px;
+  height: 32px;
+  transition: background-color 0.18s ease, transform 0.08s ease;
+}
+
+.btn-contrasena:hover {
+  background-color: #218838;
+  text-decoration: none;
+}
+
+.btn-contrasena:active {
+  transform: translateY(1px);
+}
+
+.btn-contrasena:focus {
+  outline: 2px solid rgba(40,167,69,0.25);
+  outline-offset: 2px;
+}
+
+/* Variante aún más compacta si se necesita */
+.btn-contrasena.compact {
+  padding: 4px 8px;
+  font-size: 0.78rem;
+  height: 28px;
+  min-width: 72px;
 }
