@@ -1,0 +1,73 @@
+.nosotros-container {
+  padding: 40px 80px;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #333;
+  background-color: #f9f9f9;
+}
+
+.nosotros-hero {
+  background: linear-gradient(135deg, #3aa423, #2c7e19);
+  padding: 50px;
+  border-radius: 12px;
+  color: white;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  margin-bottom: 40px;
+}
+
+.nosotros-hero h1 {
+  font-size: 42px;
+  margin: 0 0 20px 0;
+  font-weight: bold;
+}
+
+.nosotros-hero p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.nosotros-section {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.nosotros-section h2 {
+  font-size: 26px;
+  margin-bottom: 15px;
+  color: #2c7e19;
+}
+
+.nosotros-section p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.nosotros-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nosotros-lista li {
+  font-size: 16px;
+  margin: 8px 0;
+  padding-left: 25px;
+  position: relative;
+}
+
+.nosotros-lista li::before {
+  content: "✔";
+  color: #2c7e19;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.nosotros-final {
+  text-align: center;
+  font-size: 14px;
+  padding: 20px;
+  color: #666;
+}

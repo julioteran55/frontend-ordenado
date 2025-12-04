@@ -157,7 +157,9 @@ function Header() {
           </li>
 
           <li><a href="/productos">Productos</a></li>
-          <li><a href="#">Nosotros</a></li>
+          <li>
+          <Link to="/nosotros">Nosotros</Link>
+        </li>
         </ul>
 
         <ul className="menu-derecha">

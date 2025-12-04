@@ -31,6 +31,7 @@ import ModalEditar from "./components/ModalEditar.jsx";
 import ModalAgregar from "./components/ModalAgregar.jsx";
 import MisOrdenes from "./components/MisOrdenes.jsx";
 import CambiarContraseña from "./components/CambiarContraseña/CambiarContraseña.jsx";
+import Nosotros from "./components/Nosotros/Nosotros.jsx";
 
 
 export default function App() {
@@ -77,6 +78,7 @@ export default function App() {
               {/* Vista pública directa de orden */}
               <Route path="/orden/:id" element={<DetalleOrden />} />
               <Route path="/CambiarContraseña" element={ <CambiarContraseña />}/>
+              <Route path = "/Nosotros" element={ <Nosotros /> }/>
             </Routes>
 
             <Footer />
