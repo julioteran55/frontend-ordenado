@@ -18,6 +18,12 @@ export default function AdminCategorias() {
   const [categorias, setCategorias] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  //busqueda
+  const [busqueda, setBusqueda] = useState("");
+  const categoriasFiltradas = categorias.filter(cat =>
+  cat.nombre.toLowerCase().includes(busqueda.toLowerCase())
+  );
+
   // Estados para controlar qué modal se muestra
   const [showModalAgregar, setShowModalAgregar] = useState(false);
   const [categoriaAEditar, setCategoriaAEditar] = useState(null); // Contiene la categoría a editar o null
@@ -104,14 +110,15 @@ export default function AdminCategorias() {
   };
 
   return (
-    <div className="admin-container" style={{padding: 20}}>
-      <div className="admin-header" style={{display:"flex", justifyContent:"space-between", marginBottom:20}}>
-        <h1>Gestión de Categorías</h1>
+    <div className="admin-container">
+      <h1>Listado de Categorias</h1>
+      <div className="admin-header">
+        <input type="text" placeholder="Ingrese el nombre de la categoria" value={busqueda} onChange={(e) => setBusqueda(e.target.value)}/>
         <button 
             className="btn-green" 
             onClick={() => setShowModalAgregar(true)}
         >
-            + Nueva Categoría
+            + Agregar Categoría
         </button>
       </div>
 
@@ -122,33 +129,31 @@ export default function AdminCategorias() {
           No se encontraron categorías. Intenta agregar una nueva.
         </p>
       ) : (
-        <table className="tabla-categorias" style={{width:"100%", borderCollapse:"collapse"}}>
+        <table className="tabla-categorias">
           <thead>
             <tr style={{background:"#f4f4f4", textAlign:"left"}}>
-              <th style={{padding:10}}>ID</th>
-              <th style={{padding:10}}>Nombre</th>
-              <th style={{padding:10}}>Descripción</th>
-              <th style={{padding:10}}>Acciones</th>
+              <th >ID</th>
+              <th >Nombre</th>
+              <th >Descripción</th>
+              <th >Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {categorias.map((cat) => (
+            {categoriasFiltradas.map((cat) => (
               <tr key={cat.id} style={{borderBottom:"1px solid #eee"}}>
-                <td style={{padding:10}}>{String(cat.id).substring(0, 8)}...</td>
-                <td style={{padding:10}}><strong>{cat.nombre}</strong></td>
-                <td style={{padding:10}}>{cat.descripcion || "-"}</td>
+                <td>{String(cat.id).substring(0, 8)}...</td>
+                <td><strong>{cat.nombre}</strong></td>
+                <td>{cat.descripcion || "-"}</td>
                 <td style={{padding:10}}>
-                  <button 
+                  <button className="btn-editar" 
                     onClick={() => setCategoriaAEditar(cat)}
-                    style={{marginRight:10, cursor:"pointer", padding:"5px 10px"}}
                   >
-                    ✏️ Editar
+                    Editar
                   </button>
-                  <button 
+                  <button className="btn-eliminar" 
                     onClick={() => setCategoriaAEliminar(cat)}
-                    style={{color:"white", background:"red", border:"none", borderRadius:4, cursor:"pointer", padding:"5px 10px"}}
                   >
-                    🗑️ Eliminar
+                    Eliminar
                   </button>
                 </td>
               </tr>
@@ -159,7 +164,7 @@ export default function AdminCategorias() {
 
       {/* --- MODALES CONECTADOS --- */}
       
-      {/* 1. Modal Agregar */}
+      
       <ModalAgregar 
         isOpen={showModalAgregar} 
         onClose={() => setShowModalAgregar(false)}
