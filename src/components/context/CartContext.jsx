@@ -9,8 +9,10 @@ import {
   vaciarCarrito as vaciarCarritoApi 
 
 } from "../../api/carrito.js"; 
+import { actualizarCantidadItemCarrito } from "../../api/carrito.js";
 
 const CartContext = createContext();
+
 
 export const CartProvider = ({ children }) => {
   const [carrito, setCarrito] = useState([]);
@@ -28,9 +30,10 @@ export const CartProvider = ({ children }) => {
       const itemsApi = data.items_carritos || [];
       
       const carritoFormateado = itemsApi.map(item => ({
-        ...item.producto,      
+        ...item.producto,
         cantidad: item.cantidad,
-        id: item.producto.id // Aseguramos el ID correcto
+        id: item.producto.id,        // id del producto
+        carritoItemId: item.id       // 🔥 id REAL del item en el carrito
       }));
 
       setCarrito(carritoFormateado);
@@ -74,11 +77,17 @@ export const CartProvider = ({ children }) => {
 
   // ... (El resto de funciones eliminar, vaciar, etc. déjalas igual)
   const eliminarProducto = async (productoId) => {
-    try {
-      await eliminarItemDelCarrito(productoId);
-      await recargarCarrito();
-    } catch (error) { console.error(error); }
-  };
+  try {
+    const item = carrito.find((i) => i.id === productoId);
+    if (!item) return;
+
+    await eliminarItemDelCarrito(item.carritoItemId); // DELETE usando id REAL del carrito
+    await recargarCarrito();
+
+  } catch (error) {
+    console.error("❌ Error eliminando item:", error);
+  }
+};
 
   const vaciarCarrito = async () => {
     try {
@@ -87,8 +96,21 @@ export const CartProvider = ({ children }) => {
     } catch (error) { console.error(error); }
   };
   
-  // Dummy para que no falle si lo usas
-  const actualizarCantidad = () => {};
+  // Actualiza la cantidad de un item. Recibe (id, delta)
+  const actualizarCantidad = async (productoId, delta) => {
+  try {
+    const item = carrito.find(i => i.id === productoId);
+    if (!item) return;
+
+    const nuevaCantidad = Math.max(1, item.cantidad + delta);
+
+    await actualizarCantidadItemCarrito(item.carritoItemId, nuevaCantidad); 
+    await recargarCarrito();
+
+  } catch (error) {
+    console.error("❌ Error actualizando cantidad:", error);
+  }
+};
 
   return (
     <CartContext.Provider 
