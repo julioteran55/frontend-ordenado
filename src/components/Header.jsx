@@ -163,7 +163,7 @@ function Header() {
         </ul>
 
         <ul className="menu-derecha">
-          <li><a href="#">Ofertas</a></li>
+
           <li><Link to="/admin">Admin</Link></li>
         </ul>
       </nav>
