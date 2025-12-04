@@ -77,4 +77,25 @@
   transform: scale(0.98);
 }
 
+.input-wrapper {
+  position: relative;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 0.8rem;
+  user-select: none;
+  color: #28a745;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.eye-icon:hover {
+  opacity: 1;
+}
+
 
