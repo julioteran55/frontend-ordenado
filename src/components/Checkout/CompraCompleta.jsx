@@ -33,14 +33,19 @@ export default function CheckoutCompleted() {
             {items.map((it) => (
               <div key={it.id || Math.random()} className="order-item">
                 
-                {/* --- CAMBIO AQUÍ: IMAGEN FIJA --- */}
-                {/* Quitamos it.imagen y onError para evitar el bug */}
-                <img 
-                    src="https://via.placeholder.com/80.png?text=IMG" 
-                    alt={it.nombre}
-                    className="order-item__img" // Asegúrate de tener estilos para esto si es necesario
+                {/* Imagen del producto: usar `it.imagen` si existe, si no usar placeholder.
+                    Añadimos onError para reemplazar por placeholder si la URL falla. */}
+                <img
+                  src={it.imagen || it.image || "https://via.placeholder.com/80.png?text=IMG"}
+                  alt={it.nombre || "Producto"}
+                  className="order-item__img"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = "https://via.placeholder.com/80.png?text=IMG";
+                  }}
                 />
-                {/* -------------------------------- */}
+
+
 
                 <div className="order-item__info">
                   <h3>{it.nombre}</h3>
