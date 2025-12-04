@@ -7,7 +7,7 @@ import AdminOrders from "../../components/Admin/AdminOrders";
 import DateRangePicker from "../../components/DateRangePicker";
 
 import { listarUsuarios, actualizarUsuario } from "../../api/usuarios.js";
-// import { listarOrdenes } from "../../api/ordenesApi"; // TODO: crear y descomentar cuando exista el endpoint
+import { listarOrdenes } from "../../api/ordenes.js";
 
 function Admin() {
   const today = new Date().toISOString().slice(0, 10);
@@ -31,12 +31,12 @@ function Admin() {
 
         setUsers(lista);
 
-        // TODO: descomentar cuando exista listarOrdenes en ordenesApi y en backend
-        // const dataOrdenes = await listarOrdenes();
-        // if (!isMounted) return;
-        // const listaOrdenes =
-        //   Array.isArray(dataOrdenes) ? dataOrdenes : dataOrdenes?.content || [];
-        // setOrders(listaOrdenes);
+        
+        const dataOrdenes = await listarOrdenes();
+        if (!isMounted) return;
+        const listaOrdenes =
+        Array.isArray(dataOrdenes) ? dataOrdenes : dataOrdenes?.content || [];
+        setOrders(listaOrdenes);
       } catch (error) {
         console.error("Error cargando datos del dashboard:", error);
       }

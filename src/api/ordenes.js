@@ -42,3 +42,15 @@ export function pagarOrden(idOrden) {
     method: 'PUT',
   });
 }
+
+export function obtenerOrdenesPorUsuarioId(idUsuario) {
+  return apiRequest(`ordenes/ordenes-por-usuario-id/${idUsuario}`, {
+    method: 'GET',
+  });
+}
+
+export function listarOrdenes() {
+  return apiRequest('ordenes', {
+    method: 'GET',
+  });
+}
