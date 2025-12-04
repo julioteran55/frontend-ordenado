@@ -1,5 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
+// ajusta esta ruta según dónde esté tu componente
+import ModalOrden from "../Modaldetalleorden";
 
 function AdminOrders({ range, orders = [] }) {
   const navigate = useNavigate();
@@ -27,18 +29,11 @@ function AdminOrders({ range, orders = [] }) {
     navigate("/admin/ordenes");
   };
 
-  // --- estado para el modal de detalle de orden ---
-  const [selectedOrder, setSelectedOrder] = useState(null);
-  const [showOrderModal, setShowOrderModal] = useState(false);
+  // estado para el modal reutilizable
+  const [ordenSeleccionada, setOrdenSeleccionada] = useState(null);
 
   const handleOpenOrderModal = (order) => {
-    setSelectedOrder(order);
-    setShowOrderModal(true);
-  };
-
-  const handleCloseOrderModal = () => {
-    setShowOrderModal(false);
-    setSelectedOrder(null);
+    setOrdenSeleccionada(order);
   };
 
   return (
@@ -49,7 +44,7 @@ function AdminOrders({ range, orders = [] }) {
           <Link to="/admin/productos" className="btn-ver-productos">
             Ver productos
           </Link>
-          {/* 
+          {/*
           <button
             onClick={handleVerTodas}
             className="btn-ver-todas"
@@ -139,74 +134,16 @@ function AdminOrders({ range, orders = [] }) {
         </button>
       </div>
 
-      {/* MODAL DETALLE DE ORDEN */}
-      {showOrderModal && selectedOrder && (
-        <div
-          className="order-modal-overlay"
-          onClick={handleCloseOrderModal}
-          style={{
-            position: "fixed",
-            inset: 0,
-            backgroundColor: "rgba(0,0,0,0.3)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 9999,
-          }}
-        >
-          <div
-            className="order-modal"
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              backgroundColor: "#fff",
-              borderRadius: "8px",
-              padding: "16px 20px",
-              maxWidth: "420px",
-              width: "100%",
-              boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
-            }}
-          >
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-              <h4>Detalle de la orden</h4>
-              <button
-                onClick={handleCloseOrderModal}
-                style={{
-                  border: "none",
-                  background: "transparent",
-                  fontSize: "18px",
-                  cursor: "pointer",
-                }}
-              >
-                ×
-              </button>
-            </div>
-
-            <p><strong>ID:</strong> {selectedOrder.id || selectedOrder.idOrden}</p>
-            <p><strong>Usuario ID:</strong> {selectedOrder.usuarioId || "—"}</p>
-            <p><strong>Fecha:</strong> {selectedOrder.fecha || selectedOrder.date || selectedOrder.fechaCreacion}</p>
-            <p><strong>Estado pago:</strong> {selectedOrder.estadoPago || selectedOrder.status}</p>
-            <p><strong>Dirección de envío:</strong> {selectedOrder.direccionEnvio}</p>
-            <p><strong>Total:</strong> S/ {Number(selectedOrder.total || 0)}.00</p>
-
-            <div style={{ marginTop: 10 }}>
-              <strong>Productos:</strong>
-              {Array.isArray(selectedOrder.productos) && selectedOrder.productos.length > 0 ? (
-                <ul style={{ paddingLeft: "18px", marginTop: "6px" }}>
-                  {selectedOrder.productos.map((p, idx) => (
-                    <li key={idx}>
-                      {p.nombre || p.nombreProducto || "Producto sin nombre"}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p style={{ marginTop: "4px" }}>Esta orden no tiene productos registrados.</p>
-              )}
-            </div>
-          </div>
-        </div>
+      {/* Modal reutilizable */}
+      {ordenSeleccionada && (
+        <ModalOrden
+          orden={ordenSeleccionada}
+          onClose={() => setOrdenSeleccionada(null)}
+        />
       )}
     </section>
   );
 }
 
 export default AdminOrders;
+

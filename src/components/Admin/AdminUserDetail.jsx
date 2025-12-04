@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { verUsuario } from "../../api/usuarios.js";
-import { obtenerOrdenesPorUsuarioId } from "../../api/ordenes.js"
+import { obtenerOrdenesPorUsuarioId } from "../../api/ordenes.js";
+import ModalOrden from "../Modaldetalleorden.jsx";
 
 function AdminUserDetail({ user, users = [], onChangeUser }) {
   const [detalle, setDetalle] = useState(null);
@@ -10,9 +11,8 @@ function AdminUserDetail({ user, users = [], onChangeUser }) {
   const [ordersPage, setOrdersPage] = useState(1);
   const ordersPageSize = 4;
 
-  // modal de detalle de orden
-  const [selectedOrder, setSelectedOrder] = useState(null);
-  const [showOrderModal, setShowOrderModal] = useState(false);
+  // orden seleccionada para el modal reutilizable
+  const [ordenSeleccionada, setOrdenSeleccionada] = useState(null);
 
   useEffect(() => {
     if (!user) {
@@ -61,8 +61,7 @@ function AdminUserDetail({ user, users = [], onChangeUser }) {
 
   const info = detalle || user;
 
-  const avatarSrc =
-    info.photo || info.avatar || "/unknown.jpg";
+  const avatarSrc = info.photo || info.avatar || "/unknown.jpg";
 
   const nombre =
     (info.nombre && info.apellido
@@ -90,15 +89,9 @@ function AdminUserDetail({ user, users = [], onChangeUser }) {
     ordersPage * ordersPageSize
   );
 
-  // handlers modal
+  // abrir modal con la orden seleccionada
   const handleOpenOrderModal = (order) => {
-    setSelectedOrder(order);
-    setShowOrderModal(true);
-  };
-
-  const handleCloseOrderModal = () => {
-    setShowOrderModal(false);
-    setSelectedOrder(null);
+    setOrdenSeleccionada(order);
   };
 
   return (
@@ -118,9 +111,7 @@ function AdminUserDetail({ user, users = [], onChangeUser }) {
           <p>Estado: {info.estado || info.status}</p>
           <p>Tipo de usuario: {info.tipoUsuario || info.role || "-"}</p>
           {info.fechaRegistro || info.registered ? (
-            <p>
-              Fecha de registro: {info.fechaRegistro || info.registered}
-            </p>
+            <p>Fecha de registro: {info.fechaRegistro || info.registered}</p>
           ) : null}
         </div>
 
@@ -151,7 +142,10 @@ function AdminUserDetail({ user, users = [], onChangeUser }) {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="3" style={{ textAlign: "center", padding: "8px" }}>
+                  <td
+                    colSpan="3"
+                    style={{ textAlign: "center", padding: "8px" }}
+                  >
                     Este usuario aún no tiene órdenes.
                   </td>
                 </tr>
@@ -163,9 +157,7 @@ function AdminUserDetail({ user, users = [], onChangeUser }) {
             <div className="user-detail-orders-paginator">
               <button
                 className="page-arrow"
-                onClick={() =>
-                  setOrdersPage((p) => Math.max(1, p - 1))
-                }
+                onClick={() => setOrdersPage((p) => Math.max(1, p - 1))}
                 disabled={ordersPage === 1}
               >
                 &lt;
@@ -207,70 +199,12 @@ function AdminUserDetail({ user, users = [], onChangeUser }) {
         </button>
       </div>
 
-      {/* MODAL DETALLE DE ORDEN */}
-      {showOrderModal && selectedOrder && (
-        <div
-          className="order-modal-overlay"
-          onClick={handleCloseOrderModal}
-          style={{
-            position: "fixed",
-            inset: 0,
-            backgroundColor: "rgba(0,0,0,0.3)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 9999,
-          }}
-        >
-          <div
-            className="order-modal"
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              backgroundColor: "#fff",
-              borderRadius: "8px",
-              padding: "16px 20px",
-              maxWidth: "420px",
-              width: "100%",
-              boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
-            }}
-          >
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-              <h4>Detalle de la orden</h4>
-              <button
-                onClick={handleCloseOrderModal}
-                style={{
-                  border: "none",
-                  background: "transparent",
-                  fontSize: "18px",
-                  cursor: "pointer",
-                }}
-              >
-                ×
-              </button>
-            </div>
-
-            <p><strong>ID:</strong> {selectedOrder.id}</p>
-            <p><strong>Fecha:</strong> {selectedOrder.fecha}</p>
-            <p><strong>Estado pago:</strong> {selectedOrder.estadoPago}</p>
-            <p><strong>Dirección de envío:</strong> {selectedOrder.direccionEnvio}</p>
-            <p><strong>Total:</strong> S/ {Number(selectedOrder.total || 0)}.00</p>
-
-            <div style={{ marginTop: 10 }}>
-              <strong>Productos:</strong>
-              {Array.isArray(selectedOrder.productos) && selectedOrder.productos.length > 0 ? (
-                <ul style={{ paddingLeft: "18px", marginTop: "6px" }}>
-                  {selectedOrder.productos.map((p, idx) => (
-                    <li key={idx}>
-                      {p.nombre || p.nombreProducto || "Producto sin nombre"}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p style={{ marginTop: "4px" }}>Esta orden no tiene productos registrados.</p>
-              )}
-            </div>
-          </div>
-        </div>
+      {/* Modal reutilizable para ver detalle de la orden */}
+      {ordenSeleccionada && (
+        <ModalOrden
+          orden={ordenSeleccionada}
+          onClose={() => setOrdenSeleccionada(null)}
+        />
       )}
     </section>
   );
