@@ -31,3 +31,14 @@ export async function login(payload) {
 export function logoutApi() {
   clearToken();
 }
+
+export async function changePasswordApi(payload){
+
+  const data = await apiRequest('auth/change-password', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+
+}

@@ -9,32 +9,31 @@ const CambiarContraseña = () => {
   const [antigua, setAntigua] = useState("");
   const [nueva, setNueva] = useState("");
   const [repetir, setRepetir] = useState("");
-  const {changePassword} = useUser();
+  const { changePassword } = useUser();
 
-  const handleCambiar = () => {
-    
+  const handleCambiar = async () => {
     if (!antigua || !nueva || !repetir) {
       return alert("Por favor completa todos los campos");
     }
 
     if (nueva.length < 6) {
       return alert("La nueva contraseña debe tener al menos 6 caracteres");
-     
     }
 
     if (nueva !== repetir) {
       return alert("Las contraseñas nuevas no coinciden");
     }
 
-    const exito = changePassword(antigua, nueva);
+    const exito = await changePassword(antigua, nueva);
 
     if (exito) {
       alert("Contraseña cambiada correctamente");
       setAntigua("");
       setNueva("");
       setRepetir("");
-      navigate("/Home"); 
-      alert("Contraseña actual incorrecta");
+      navigate("/Home");
+    } else {
+      alert("Contraseña actual incorrecta o error al cambiar la contraseña");
     }
   };
 
@@ -68,7 +67,6 @@ const CambiarContraseña = () => {
         />
 
         <button onClick={handleCambiar}>Cambiar contraseña</button>
-
       </div>
     </div>
   );
